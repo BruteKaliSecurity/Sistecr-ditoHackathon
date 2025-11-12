@@ -405,7 +405,7 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 
 ## 👥 Equipo
 
-Desarrollado para el Hackathon de Blockchain - 2024
+Desarrollado para el Hackathon de Blockchain - 2025
 
 ---
 
