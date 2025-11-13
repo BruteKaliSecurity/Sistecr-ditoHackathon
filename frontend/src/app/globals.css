@@ -50,3 +50,9 @@ body {
   background: #555;
 }
 
+/* AI Chat Input Placeholder */
+input[type="text"]::placeholder {
+  color: #8B92A7;
+  opacity: 1;
+}
+

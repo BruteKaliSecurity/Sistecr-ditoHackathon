@@ -19,10 +19,10 @@ export function ProgressChart({
   const paymentsProgress = Math.min((consecutivePayments / 12) * 100, 100);
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6">
+    <div className="rounded-xl p-6 backdrop-blur-sm transition-all duration-300" style={{ backgroundColor: '#1A2332', border: '1px solid rgba(0, 255, 135, 0.1)', boxShadow: '0 0 20px rgba(0, 255, 135, 0.1)' }}>
       <div className="flex items-center space-x-2 mb-6">
-        <BarChart3 className="w-6 h-6 text-indigo-600" />
-        <h3 className="text-xl font-bold text-gray-900">Progreso y Metas</h3>
+        <BarChart3 className="w-6 h-6" style={{ color: '#00FF87' }} />
+        <h3 className="text-xl font-bold" style={{ color: '#00FF87', letterSpacing: '-0.02em' }}>Progreso y Metas</h3>
       </div>
 
       <div className="space-y-6">
@@ -30,25 +30,29 @@ export function ProgressChart({
         <div>
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center space-x-2">
-              <TrendingUp className="w-4 h-4 text-blue-500" />
-              <span className="text-sm font-semibold text-gray-700">Payment Score</span>
+              <TrendingUp className="w-4 h-4" style={{ color: '#00FF87' }} />
+              <span className="text-sm font-semibold" style={{ color: '#FFFFFF' }}>Payment Score</span>
             </div>
-            <span className="text-sm font-bold text-gray-900">
+            <span className="text-sm font-bold" style={{ color: '#00FF87' }}>
               {currentScore} / {targetScore}
             </span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+          <div className="w-full rounded-full h-4 overflow-hidden" style={{ backgroundColor: 'rgba(139, 146, 167, 0.1)' }}>
             <div
-              className="bg-gradient-to-r from-blue-500 to-indigo-600 h-4 rounded-full transition-all duration-500 flex items-center justify-end pr-2"
-              style={{ width: `${progress}%` }}
+              className="h-4 rounded-full transition-all duration-500 flex items-center justify-end pr-2"
+              style={{ 
+                width: `${progress}%`,
+                background: 'linear-gradient(135deg, #00FF87 0%, #00D9FF 100%)',
+                boxShadow: '0 0 10px rgba(0, 255, 135, 0.3)'
+              }}
             >
               {progress > 15 && (
-                <span className="text-xs font-bold text-white">{Math.round(progress)}%</span>
+                <span className="text-xs font-bold" style={{ color: '#0A0F1E' }}>{Math.round(progress)}%</span>
               )}
             </div>
           </div>
           {progress < 100 && (
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs mt-1" style={{ color: '#8B92A7' }}>
               Faltan {targetScore - currentScore} puntos para alcanzar tu meta
             </p>
           )}
@@ -58,41 +62,45 @@ export function ProgressChart({
         <div>
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center space-x-2">
-              <Target className="w-4 h-4 text-green-500" />
-              <span className="text-sm font-semibold text-gray-700">Pagos Consecutivos</span>
+              <Target className="w-4 h-4" style={{ color: '#00D9FF' }} />
+              <span className="text-sm font-semibold" style={{ color: '#FFFFFF' }}>Pagos Consecutivos</span>
             </div>
-            <span className="text-sm font-bold text-gray-900">
+            <span className="text-sm font-bold" style={{ color: '#00D9FF' }}>
               {consecutivePayments} / 12
             </span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+          <div className="w-full rounded-full h-4 overflow-hidden" style={{ backgroundColor: 'rgba(139, 146, 167, 0.1)' }}>
             <div
-              className="bg-gradient-to-r from-green-500 to-emerald-600 h-4 rounded-full transition-all duration-500 flex items-center justify-end pr-2"
-              style={{ width: `${paymentsProgress}%` }}
+              className="h-4 rounded-full transition-all duration-500 flex items-center justify-end pr-2"
+              style={{ 
+                width: `${paymentsProgress}%`,
+                background: 'linear-gradient(135deg, #00D9FF 0%, #00FF87 100%)',
+                boxShadow: '0 0 10px rgba(0, 217, 255, 0.3)'
+              }}
             >
               {paymentsProgress > 15 && (
-                <span className="text-xs font-bold text-white">
+                <span className="text-xs font-bold" style={{ color: '#0A0F1E' }}>
                   {Math.round(paymentsProgress)}%
                 </span>
               )}
             </div>
           </div>
           {paymentsProgress < 100 && (
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs mt-1" style={{ color: '#8B92A7' }}>
               Faltan {12 - consecutivePayments} pagos para completar el objetivo mensual
             </p>
           )}
         </div>
 
         {/* Estadísticas rápidas */}
-        <div className="grid grid-cols-2 gap-4 pt-4 border-t border-gray-200">
-          <div className="text-center">
-            <div className="text-2xl font-bold text-blue-600">{currentScore}</div>
-            <div className="text-xs text-gray-600">Score Actual</div>
+        <div className="grid grid-cols-2 gap-4 pt-4" style={{ borderTop: '1px solid rgba(255, 255, 255, 0.05)' }}>
+          <div className="text-center p-3 rounded-lg" style={{ backgroundColor: '#131B2E', border: '1px solid rgba(0, 255, 135, 0.1)' }}>
+            <div className="text-2xl font-bold" style={{ color: '#00FF87' }}>{currentScore}</div>
+            <div className="text-xs mt-1" style={{ color: '#8B92A7' }}>Score Actual</div>
           </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-green-600">{consecutivePayments}</div>
-            <div className="text-xs text-gray-600">Racha Actual</div>
+          <div className="text-center p-3 rounded-lg" style={{ backgroundColor: '#131B2E', border: '1px solid rgba(0, 217, 255, 0.1)' }}>
+            <div className="text-2xl font-bold" style={{ color: '#00D9FF' }}>{consecutivePayments}</div>
+            <div className="text-xs mt-1" style={{ color: '#8B92A7' }}>Racha Actual</div>
           </div>
         </div>
       </div>

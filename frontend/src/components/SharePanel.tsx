@@ -100,39 +100,86 @@ export function SharePanel({
     <>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center space-x-2 px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-lg hover:bg-white/30 transition-colors shadow-md"
+        className="flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300"
+        style={{ 
+          backgroundColor: 'transparent',
+          border: '1px solid #00FF87',
+          color: '#00FF87'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.backgroundColor = 'rgba(0, 255, 135, 0.1)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor = 'transparent';
+        }}
         title="Compartir Logros"
       >
         <Share2 className="w-4 h-4" />
-        <span>Compartir Logros</span>
+        <span className="font-semibold">Compartir Logros</span>
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 p-4">
-          <h3 className="text-lg font-bold text-gray-900 mb-4">
+        <div className="absolute right-0 top-full mt-2 w-80 rounded-xl z-50 p-4 backdrop-blur-sm" style={{ backgroundColor: '#1A2332', border: '1px solid rgba(0, 255, 135, 0.2)', boxShadow: '0 0 30px rgba(0, 255, 135, 0.2)' }}>
+          <h3 className="text-lg font-bold mb-4" style={{ color: '#00FF87', letterSpacing: '-0.02em' }}>
             Compartir en Redes Sociales
           </h3>
           <div className="space-y-2">
             <button
               onClick={() => handleShare("facebook")}
-              className="w-full flex items-center space-x-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
+              className="w-full flex items-center space-x-3 p-3 rounded-lg transition-all duration-300"
+              style={{ 
+                backgroundColor: 'rgba(0, 255, 135, 0.05)',
+                border: '1px solid rgba(0, 255, 135, 0.1)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(0, 255, 135, 0.1)';
+                e.currentTarget.style.borderColor = 'rgba(0, 255, 135, 0.3)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(0, 255, 135, 0.05)';
+                e.currentTarget.style.borderColor = 'rgba(0, 255, 135, 0.1)';
+              }}
             >
-              <Facebook className="w-5 h-5 text-blue-600" />
-              <span className="text-gray-700 font-medium">Publicar en Facebook</span>
+              <Facebook className="w-5 h-5" style={{ color: '#00FF87' }} />
+              <span className="font-medium" style={{ color: '#FFFFFF' }}>Publicar en Facebook</span>
             </button>
             <button
               onClick={() => handleShare("twitter")}
-              className="w-full flex items-center space-x-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
+              className="w-full flex items-center space-x-3 p-3 rounded-lg transition-all duration-300"
+              style={{ 
+                backgroundColor: 'rgba(0, 255, 135, 0.05)',
+                border: '1px solid rgba(0, 255, 135, 0.1)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(0, 255, 135, 0.1)';
+                e.currentTarget.style.borderColor = 'rgba(0, 255, 135, 0.3)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(0, 255, 135, 0.05)';
+                e.currentTarget.style.borderColor = 'rgba(0, 255, 135, 0.1)';
+              }}
             >
-              <Twitter className="w-5 h-5 text-blue-500" />
-              <span className="text-gray-700 font-medium">Publicar en X (Twitter)</span>
+              <Twitter className="w-5 h-5" style={{ color: '#00FF87' }} />
+              <span className="font-medium" style={{ color: '#FFFFFF' }}>Publicar en X (Twitter)</span>
             </button>
             <button
               onClick={() => handleShare("instagram")}
-              className="w-full flex items-center space-x-3 p-3 bg-gradient-to-r from-pink-50 to-purple-50 hover:from-pink-100 hover:to-purple-100 rounded-lg transition-colors"
+              className="w-full flex items-center space-x-3 p-3 rounded-lg transition-all duration-300"
+              style={{ 
+                backgroundColor: 'rgba(0, 255, 135, 0.05)',
+                border: '1px solid rgba(0, 255, 135, 0.1)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(0, 255, 135, 0.1)';
+                e.currentTarget.style.borderColor = 'rgba(0, 255, 135, 0.3)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(0, 255, 135, 0.05)';
+                e.currentTarget.style.borderColor = 'rgba(0, 255, 135, 0.1)';
+              }}
             >
-              <Instagram className="w-5 h-5 text-pink-600" />
-              <span className="text-gray-700 font-medium">Publicar en Instagram</span>
+              <Instagram className="w-5 h-5" style={{ color: '#00FF87' }} />
+              <span className="font-medium" style={{ color: '#FFFFFF' }}>Publicar en Instagram</span>
             </button>
           </div>
         </div>

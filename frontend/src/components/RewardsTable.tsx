@@ -47,18 +47,18 @@ export function RewardsTable({ level, consecutivePayments, isDemoMode = false }:
   ];
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6">
+    <div className="rounded-xl p-6 backdrop-blur-sm transition-all duration-300" style={{ backgroundColor: '#1A2332', border: '1px solid rgba(0, 255, 135, 0.1)', boxShadow: '0 0 20px rgba(0, 255, 135, 0.1)' }}>
       <div className="flex items-center space-x-2 mb-6">
-        <Gift className="w-6 h-6 text-indigo-600" />
-        <h3 className="text-xl font-bold text-gray-900">Tabla de Recompensas cCOP</h3>
+        <Gift className="w-6 h-6" style={{ color: '#00FF87' }} />
+        <h3 className="text-xl font-bold" style={{ color: '#00FF87', letterSpacing: '-0.02em' }}>Tabla de Recompensas cCOP</h3>
       </div>
 
-      <div className="mb-6 p-4 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg border border-indigo-200">
+      <div className="mb-6 p-4 rounded-lg backdrop-blur-sm" style={{ background: 'linear-gradient(135deg, rgba(0, 255, 135, 0.1) 0%, rgba(0, 217, 255, 0.1) 100%)', border: '1px solid rgba(0, 255, 135, 0.2)' }}>
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-semibold text-gray-700">Recompensa Actual</span>
-          <span className="text-2xl font-bold text-indigo-600">{totalReward} mcCOP</span>
+          <span className="text-sm font-semibold" style={{ color: '#FFFFFF' }}>Recompensa Actual</span>
+          <span className="text-2xl font-bold" style={{ color: '#00FF87' }}>{totalReward} mcCOP</span>
         </div>
-        <div className="grid grid-cols-3 gap-2 text-xs text-gray-600">
+        <div className="grid grid-cols-3 gap-2 text-xs" style={{ color: '#8B92A7' }}>
           <div>Nivel: {level}</div>
           <div>Multiplicador: {multiplier}x</div>
           <div>Racha: {consecutivePayments}</div>
@@ -68,43 +68,55 @@ export function RewardsTable({ level, consecutivePayments, isDemoMode = false }:
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-gray-200">
-              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Racha</th>
-              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Base</th>
-              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Multiplicador</th>
-              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Bonus Racha</th>
-              <th className="text-right py-3 px-4 text-sm font-semibold text-gray-700">Total mcCOP</th>
+            <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
+              <th className="text-left py-3 px-4 text-sm font-semibold" style={{ color: '#FFFFFF' }}>Racha</th>
+              <th className="text-left py-3 px-4 text-sm font-semibold" style={{ color: '#FFFFFF' }}>Base</th>
+              <th className="text-left py-3 px-4 text-sm font-semibold" style={{ color: '#FFFFFF' }}>Multiplicador</th>
+              <th className="text-left py-3 px-4 text-sm font-semibold" style={{ color: '#FFFFFF' }}>Bonus Racha</th>
+              <th className="text-right py-3 px-4 text-sm font-semibold" style={{ color: '#FFFFFF' }}>Total mcCOP</th>
             </tr>
           </thead>
           <tbody>
             {rewardsData.map((row, index) => (
               <tr
                 key={index}
-                className={`border-b border-gray-100 hover:bg-gray-50 ${
-                  row.racha === consecutivePayments ? "bg-indigo-50" : ""
-                }`}
+                className="transition-all duration-300"
+                style={{ 
+                  borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+                  backgroundColor: row.racha === consecutivePayments ? 'rgba(0, 255, 135, 0.1)' : 'transparent'
+                }}
+                onMouseEnter={(e) => {
+                  if (row.racha !== consecutivePayments) {
+                    e.currentTarget.style.backgroundColor = 'rgba(0, 255, 135, 0.05)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (row.racha !== consecutivePayments) {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                  }
+                }}
               >
                 <td className="py-3 px-4">
                   <div className="flex items-center space-x-2">
                     {row.racha === consecutivePayments && (
-                      <Trophy className="w-4 h-4 text-yellow-500" />
+                      <Trophy className="w-4 h-4" style={{ color: '#00FF87' }} />
                     )}
-                    <span className="font-semibold">{row.racha}</span>
+                    <span className="font-semibold" style={{ color: '#FFFFFF' }}>{row.racha}</span>
                   </div>
                 </td>
-                <td className="py-3 px-4 text-gray-600">{row.base} mcCOP</td>
-                <td className="py-3 px-4 text-gray-600">{row.multiplier.toFixed(1)}x</td>
-                <td className="py-3 px-4 text-gray-600">+{row.bonus} mcCOP</td>
-                <td className="py-3 px-4 text-right font-bold text-indigo-600">{row.total} mcCOP</td>
+                <td className="py-3 px-4" style={{ color: '#8B92A7' }}>{row.base} mcCOP</td>
+                <td className="py-3 px-4" style={{ color: '#8B92A7' }}>{row.multiplier.toFixed(1)}x</td>
+                <td className="py-3 px-4" style={{ color: '#8B92A7' }}>+{row.bonus} mcCOP</td>
+                <td className="py-3 px-4 text-right font-bold" style={{ color: '#00FF87' }}>{row.total} mcCOP</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-        <p className="text-xs text-blue-800">
-          <strong>Nota:</strong> Las recompensas se calculan multiplicando la base por el multiplicador de nivel y sumando el bonus por racha.
+      <div className="mt-4 p-3 rounded-lg backdrop-blur-sm" style={{ backgroundColor: '#131B2E', border: '1px solid rgba(0, 217, 255, 0.2)', borderLeft: '4px solid #00D9FF' }}>
+        <p className="text-xs" style={{ color: '#8B92A7' }}>
+          <strong style={{ color: '#FFFFFF' }}>Nota:</strong> Las recompensas se calculan multiplicando la base por el multiplicador de nivel y sumando el bonus por racha.
         </p>
       </div>
     </div>

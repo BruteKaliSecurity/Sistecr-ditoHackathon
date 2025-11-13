@@ -65,30 +65,30 @@ export function ActivityFeed({ isDemoMode = false }: ActivityFeedProps) {
   const getActivityIcon = (type: string) => {
     switch (type) {
       case "payment":
-        return <CheckCircle2 className="w-5 h-5 text-green-500" />;
+        return <CheckCircle2 className="w-5 h-5" style={{ color: '#00FF87' }} />;
       case "reward":
-        return <Gift className="w-5 h-5 text-yellow-500" />;
+        return <Gift className="w-5 h-5" style={{ color: '#00D9FF' }} />;
       case "achievement":
-        return <Trophy className="w-5 h-5 text-purple-500" />;
+        return <Trophy className="w-5 h-5" style={{ color: '#FFAA00' }} />;
       case "score":
-        return <ArrowRight className="w-5 h-5 text-blue-500" />;
+        return <ArrowRight className="w-5 h-5" style={{ color: '#00FF87' }} />;
       default:
-        return <Clock className="w-5 h-5 text-gray-500" />;
+        return <Clock className="w-5 h-5" style={{ color: '#8B92A7' }} />;
     }
   };
 
   const getActivityColor = (type: string) => {
     switch (type) {
       case "payment":
-        return "bg-green-50 border-green-200";
+        return { bg: "rgba(0, 255, 135, 0.1)", border: "rgba(0, 255, 135, 0.2)" };
       case "reward":
-        return "bg-yellow-50 border-yellow-200";
+        return { bg: "rgba(0, 217, 255, 0.1)", border: "rgba(0, 217, 255, 0.2)" };
       case "achievement":
-        return "bg-purple-50 border-purple-200";
+        return { bg: "rgba(255, 170, 0, 0.1)", border: "rgba(255, 170, 0, 0.2)" };
       case "score":
-        return "bg-blue-50 border-blue-200";
+        return { bg: "rgba(0, 255, 135, 0.1)", border: "rgba(0, 255, 135, 0.2)" };
       default:
-        return "bg-gray-50 border-gray-200";
+        return { bg: "rgba(139, 146, 167, 0.05)", border: "rgba(139, 146, 167, 0.1)" };
     }
   };
 
@@ -104,43 +104,56 @@ export function ActivityFeed({ isDemoMode = false }: ActivityFeedProps) {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6">
+    <div className="rounded-xl p-6 backdrop-blur-sm transition-all duration-300" style={{ backgroundColor: '#1A2332', border: '1px solid rgba(0, 255, 135, 0.1)', boxShadow: '0 0 20px rgba(0, 255, 135, 0.1)' }}>
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-xl font-bold text-gray-900">Actividad Reciente</h3>
-        <Clock className="w-5 h-5 text-gray-400" />
+        <h3 className="text-xl font-bold" style={{ color: '#00FF87', letterSpacing: '-0.02em' }}>Actividad Reciente</h3>
+        <Clock className="w-5 h-5" style={{ color: '#8B92A7' }} />
       </div>
 
       <div className="space-y-4">
         {activities.length > 0 ? (
-          activities.map((activity, index) => (
-            <div
-              key={activity.id}
-              className={`flex items-start space-x-4 p-4 rounded-lg border ${getActivityColor(
-                activity.type
-              )} transition-all hover:shadow-md`}
-            >
-              <div className="flex-shrink-0 mt-1">
-                {getActivityIcon(activity.type)}
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-start justify-between mb-1">
-                  <h4 className="font-semibold text-gray-900">{activity.title}</h4>
-                  {activity.amount && (
-                    <span className="text-sm font-bold text-gray-700 ml-2 whitespace-nowrap">
-                      {activity.type === "payment"
-                        ? `$${activity.amount.toLocaleString("es-CO")}`
-                        : `${activity.amount} mcCOP`}
-                    </span>
-                  )}
+          activities.map((activity, index) => {
+            const colors = getActivityColor(activity.type);
+            return (
+              <div
+                key={activity.id}
+                className="flex items-start space-x-4 p-4 rounded-lg border transition-all duration-300"
+                style={{
+                  backgroundColor: colors.bg,
+                  borderColor: colors.border
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 255, 135, 0.2)';
+                  e.currentTarget.style.borderColor = colors.border.replace('0.2', '0.4');
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.style.borderColor = colors.border;
+                }}
+              >
+                <div className="flex-shrink-0 mt-1">
+                  {getActivityIcon(activity.type)}
                 </div>
-                <p className="text-sm text-gray-600 mb-2">{activity.description}</p>
-                <p className="text-xs text-gray-400">{formatTime(activity.timestamp)}</p>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between mb-1">
+                    <h4 className="font-semibold" style={{ color: '#FFFFFF' }}>{activity.title}</h4>
+                    {activity.amount && (
+                      <span className="text-sm font-bold ml-2 whitespace-nowrap" style={{ color: activity.type === "payment" ? '#00FF87' : '#00D9FF' }}>
+                        {activity.type === "payment"
+                          ? `$${activity.amount.toLocaleString("es-CO")}`
+                          : `${activity.amount} mcCOP`}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-sm mb-2" style={{ color: '#8B92A7' }}>{activity.description}</p>
+                  <p className="text-xs" style={{ color: '#8B92A7', opacity: 0.7 }}>{formatTime(activity.timestamp)}</p>
+                </div>
               </div>
-            </div>
-          ))
+            );
+          })
         ) : (
-          <div className="text-center py-8 text-gray-500">
-            <Clock className="w-12 h-12 mx-auto mb-2 text-gray-300" />
+          <div className="text-center py-8" style={{ color: '#8B92A7' }}>
+            <Clock className="w-12 h-12 mx-auto mb-2" style={{ color: '#8B92A7', opacity: 0.5 }} />
             <p>No hay actividad reciente</p>
           </div>
         )}

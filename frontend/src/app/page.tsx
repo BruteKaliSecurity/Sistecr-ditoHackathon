@@ -27,6 +27,8 @@ import { ComparisonCard } from "@/components/ComparisonCard";
 import { GoalsTracker } from "@/components/GoalsTracker";
 import { StatsSummary } from "@/components/StatsSummary";
 import { DashboardTabs } from "@/components/DashboardTabs";
+import { WelcomeCard } from "@/components/WelcomeCard";
+import { RecommendedActions } from "@/components/RecommendedActions";
 import { Wallet, LogOut, CreditCard, Trophy, TrendingUp, Menu, X, User } from "lucide-react";
 
 // Configurar wagmi para localhost
@@ -88,18 +90,20 @@ function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+    <div className="min-h-screen" style={{ backgroundColor: '#0A0F1E' }}>
       {/* Header Mejorado */}
-      <header className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 shadow-lg">
+      <header className="border-b border-white/5" style={{ backgroundColor: '#0A0F1E' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
-                <CreditCard className="w-6 h-6 text-white" />
+              <div className="p-2 rounded-lg backdrop-blur-sm" style={{ backgroundColor: 'rgba(0, 255, 135, 0.1)', border: '1px solid rgba(0, 255, 135, 0.2)' }}>
+                <CreditCard className="w-6 h-6" style={{ color: '#00FF87' }} />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-white">CrediPass</h1>
-                <p className="text-xs text-white/80">Tu pasaporte financiero digital. Portátil y verificable en cualquier comercio.</p>
+                <h1 className="text-2xl font-bold" style={{ color: '#FFFFFF', letterSpacing: '-0.02em' }}>
+                  <span style={{ color: '#00FF87' }}>Credi</span>Pass
+                </h1>
+                <p className="text-xs" style={{ color: '#8B92A7' }}>Tu pasaporte financiero digital. Portátil y verificable en cualquier comercio.</p>
               </div>
             </div>
             <div className="hidden md:flex items-center space-x-3">
@@ -120,33 +124,68 @@ function Dashboard() {
               {/* Botón de Perfil */}
               <button
                 onClick={() => setProfileOpen(true)}
-                className="flex items-center space-x-2 px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-lg hover:bg-white/30 transition-colors shadow-md"
+                className="flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300"
+                style={{ 
+                  backgroundColor: 'transparent',
+                  border: '1px solid #00FF87',
+                  color: '#00FF87'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(0, 255, 135, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                }}
                 title="Ver Perfil"
               >
                 <User className="w-4 h-4" />
-                <span>Perfil</span>
+                <span className="font-semibold">Perfil</span>
               </button>
 
               {isConnected ? (
                 <>
-                  <div className="flex items-center space-x-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-lg">
-                    <Wallet className="w-5 h-5 text-white" />
-                    <span className="text-sm font-medium text-white">
+                  <div className="flex items-center space-x-2 px-4 py-2 rounded-lg" style={{ backgroundColor: '#131B2E', border: '1px solid rgba(139, 146, 167, 0.1)' }}>
+                    <Wallet className="w-5 h-5" style={{ color: '#8B92A7' }} />
+                    <span className="text-sm font-medium" style={{ color: '#FFFFFF' }}>
                       {address?.slice(0, 6)}...{address?.slice(-4)}
                     </span>
                   </div>
                   <button
                     onClick={() => disconnect()}
-                    className="flex items-center space-x-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors shadow-md"
+                    className="flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300"
+                    style={{ 
+                      backgroundColor: 'transparent',
+                      border: '1px solid rgba(255, 0, 0, 0.5)',
+                      color: '#ff4444'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(255, 0, 0, 0.1)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                    }}
                   >
                     <LogOut className="w-4 h-4" />
-                    <span>Desconectar</span>
+                    <span className="font-semibold">Desconectar</span>
                   </button>
                 </>
               ) : (
                 <button
                   onClick={handleConnect}
-                  className="flex items-center space-x-2 px-4 py-2 bg-white text-indigo-600 rounded-lg hover:bg-gray-100 transition-colors shadow-md font-semibold"
+                  className="flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 font-semibold"
+                  style={{ 
+                    background: 'linear-gradient(135deg, #00FF87 0%, #00D9FF 100%)',
+                    color: '#0A0F1E',
+                    boxShadow: '0 4px 20px rgba(0, 255, 135, 0.3)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = '0 6px 30px rgba(0, 255, 135, 0.4)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 255, 135, 0.3)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
                 >
                   <Wallet className="w-4 h-4" />
                   <span>Conectar MetaMask</span>
@@ -155,14 +194,23 @@ function Dashboard() {
             </div>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 text-white hover:bg-white/20 rounded-lg"
+              className="md:hidden p-2 rounded-lg transition-all duration-300"
+              style={{ color: '#8B92A7' }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = '#00FF87';
+                e.currentTarget.style.backgroundColor = 'rgba(0, 255, 135, 0.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = '#8B92A7';
+                e.currentTarget.style.backgroundColor = 'transparent';
+              }}
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
           {/* Mobile Menu */}
           {mobileMenuOpen && (
-            <div className="md:hidden mt-4 pt-4 border-t border-white/20 space-y-2">
+            <div className="md:hidden mt-4 pt-4 space-y-2" style={{ borderTop: '1px solid rgba(255, 255, 255, 0.05)' }}>
               <div className="flex items-center justify-center">
                 <NotificationsPanel isDemoMode={isDemoMode} />
               </div>
@@ -171,31 +219,66 @@ function Dashboard() {
                   setProfileOpen(true);
                   setMobileMenuOpen(false);
                 }}
-                className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-lg hover:bg-white/30 transition-colors"
+                className="w-full flex items-center justify-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300"
+                style={{ 
+                  backgroundColor: 'transparent',
+                  border: '1px solid #00FF87',
+                  color: '#00FF87'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(0, 255, 135, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                }}
               >
                 <User className="w-4 h-4" />
-                <span>Perfil</span>
+                <span className="font-semibold">Perfil</span>
               </button>
               {isConnected ? (
                 <>
-                  <div className="flex items-center space-x-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-lg">
-                    <Wallet className="w-5 h-5 text-white" />
-                    <span className="text-sm font-medium text-white">
+                  <div className="flex items-center space-x-2 px-4 py-2 rounded-lg" style={{ backgroundColor: '#131B2E', border: '1px solid rgba(139, 146, 167, 0.1)' }}>
+                    <Wallet className="w-5 h-5" style={{ color: '#8B92A7' }} />
+                    <span className="text-sm font-medium" style={{ color: '#FFFFFF' }}>
                       {address?.slice(0, 6)}...{address?.slice(-4)}
                     </span>
                   </div>
                   <button
                     onClick={() => disconnect()}
-                    className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+                    className="w-full flex items-center justify-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300"
+                    style={{ 
+                      backgroundColor: 'transparent',
+                      border: '1px solid rgba(255, 0, 0, 0.5)',
+                      color: '#ff4444'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(255, 0, 0, 0.1)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                    }}
                   >
                     <LogOut className="w-4 h-4" />
-                    <span>Desconectar</span>
+                    <span className="font-semibold">Desconectar</span>
                   </button>
                 </>
               ) : (
                 <button
                   onClick={handleConnect}
-                  className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-white text-indigo-600 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
+                  className="w-full flex items-center justify-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 font-semibold"
+                  style={{ 
+                    background: 'linear-gradient(135deg, #00FF87 0%, #00D9FF 100%)',
+                    color: '#0A0F1E',
+                    boxShadow: '0 4px 20px rgba(0, 255, 135, 0.3)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = '0 6px 30px rgba(0, 255, 135, 0.4)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 255, 135, 0.3)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
                 >
                   <Wallet className="w-4 h-4" />
                   <span>Conectar MetaMask</span>
@@ -210,14 +293,14 @@ function Dashboard() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Demo Mode Banner */}
         {isDemoMode && (
-          <div className="mb-6 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-lg">
+          <div className="mb-6 p-4 rounded-lg" style={{ backgroundColor: '#131B2E', borderLeft: '4px solid #00FF87', border: '1px solid rgba(0, 255, 135, 0.1)' }}>
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <span className="text-yellow-400">⚠️</span>
+                <span style={{ color: '#00FF87' }}>⚠️</span>
               </div>
               <div className="ml-3">
-                <p className="text-sm text-yellow-700">
-                  <strong>Modo Demo:</strong> Conecta tu wallet de MetaMask para
+                <p className="text-sm" style={{ color: '#8B92A7' }}>
+                  <strong style={{ color: '#FFFFFF' }}>Modo Demo:</strong> Conecta tu wallet de MetaMask para
                   ver tus datos reales desde la blockchain.
                 </p>
               </div>
@@ -225,51 +308,103 @@ function Dashboard() {
           </div>
         )}
 
-        {/* Stats Cards Mejoradas */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-xl shadow-lg p-6 border-2 border-blue-200 transform hover:scale-105 transition-transform">
+        {/* Welcome Card y Stats Cards Mejoradas */}
+        <div className="mb-8">
+          <WelcomeCard
+            score={currentScore}
+            level={getLevel(currentScore)}
+            consecutivePayments={consecutivePayments}
+            isDemoMode={isDemoMode}
+          />
+        </div>
+
+        {/* Stats Cards Compactas */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <div 
+            className="rounded-xl p-5 transition-all duration-300 backdrop-blur-sm"
+            style={{ 
+              backgroundColor: '#1A2332',
+              border: '1px solid rgba(0, 255, 135, 0.1)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(0, 255, 135, 0.3)';
+              e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 255, 135, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(0, 255, 135, 0.1)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 mb-1 font-medium">Payment Score</p>
-                <p className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                <p className="text-sm mb-1 font-medium" style={{ color: '#8B92A7' }}>Payment Score</p>
+                <p className="text-3xl font-bold" style={{ color: '#00FF87' }}>
                   {currentScore}
                 </p>
-                <p className="text-xs text-gray-500 mt-1">Nivel {getLevel(currentScore)}</p>
+                <p className="text-xs mt-1" style={{ color: '#8B92A7' }}>Nivel {getLevel(currentScore)}</p>
               </div>
-              <div className="p-3 bg-blue-500 rounded-full">
-                <TrendingUp className="w-8 h-8 text-white" />
+              <div className="p-3 rounded-full" style={{ backgroundColor: 'rgba(0, 255, 135, 0.1)' }}>
+                <TrendingUp className="w-7 h-7" style={{ color: '#00FF87' }} />
               </div>
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-xl shadow-lg p-6 border-2 border-green-200 transform hover:scale-105 transition-transform">
+          <div 
+            className="rounded-xl p-5 transition-all duration-300 backdrop-blur-sm"
+            style={{ 
+              backgroundColor: '#1A2332',
+              border: '1px solid rgba(0, 255, 135, 0.1)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(0, 255, 135, 0.3)';
+              e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 255, 135, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(0, 255, 135, 0.1)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 mb-1 font-medium">
+                <p className="text-sm mb-1 font-medium" style={{ color: '#8B92A7' }}>
                   Pagos Consecutivos
                 </p>
-                <p className="text-4xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+                <p className="text-3xl font-bold" style={{ color: '#00FF87' }}>
                   {consecutivePayments}
                 </p>
-                <p className="text-xs text-gray-500 mt-1">Racha activa</p>
+                <p className="text-xs mt-1" style={{ color: '#8B92A7' }}>Racha activa</p>
               </div>
-              <div className="p-3 bg-green-500 rounded-full">
-                <CreditCard className="w-8 h-8 text-white" />
+              <div className="p-3 rounded-full" style={{ backgroundColor: 'rgba(0, 255, 135, 0.1)' }}>
+                <CreditCard className="w-7 h-7" style={{ color: '#00FF87' }} />
               </div>
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-yellow-50 to-orange-100 rounded-xl shadow-lg p-6 border-2 border-yellow-200 transform hover:scale-105 transition-transform">
+          <div 
+            className="rounded-xl p-5 transition-all duration-300 backdrop-blur-sm"
+            style={{ 
+              backgroundColor: '#1A2332',
+              border: '1px solid rgba(0, 255, 135, 0.1)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(0, 255, 135, 0.3)';
+              e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 255, 135, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(0, 255, 135, 0.1)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 mb-1 font-medium">Recompensas</p>
-                <p className="text-4xl font-bold bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">
+                <p className="text-sm mb-1 font-medium" style={{ color: '#8B92A7' }}>Recompensas</p>
+                <p className="text-3xl font-bold" style={{ color: '#00FF87' }}>
                   {rewards}
                 </p>
-                <p className="text-xs text-gray-500 mt-1">mcCOP acumulados</p>
+                <p className="text-xs mt-1" style={{ color: '#8B92A7' }}>mcCOP acumulados</p>
               </div>
-              <div className="p-3 bg-yellow-500 rounded-full">
-                <Trophy className="w-8 h-8 text-white" />
+              <div className="p-3 rounded-full" style={{ backgroundColor: 'rgba(0, 255, 135, 0.1)' }}>
+                <Trophy className="w-7 h-7" style={{ color: '#00FF87' }} />
               </div>
             </div>
           </div>
@@ -280,19 +415,29 @@ function Dashboard() {
           <div className="fixed inset-0 z-50 overflow-y-auto">
             {/* Overlay */}
             <div
-              className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
+              className="fixed inset-0 transition-opacity"
+              style={{ backgroundColor: 'rgba(10, 15, 30, 0.8)', backdropFilter: 'blur(4px)' }}
               onClick={() => setProfileOpen(false)}
             ></div>
 
             {/* Modal Content */}
             <div className="flex min-h-full items-center justify-center p-4">
-              <div className="relative bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="relative rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto backdrop-blur-sm" style={{ backgroundColor: '#1A2332', border: '1px solid rgba(0, 255, 135, 0.2)', boxShadow: '0 0 40px rgba(0, 255, 135, 0.2)' }}>
                 {/* Header del Modal */}
-                <div className="sticky top-0 bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-4 rounded-t-xl flex items-center justify-between z-10">
-                  <h2 className="text-2xl font-bold text-white">Perfil de Usuario</h2>
+                <div className="sticky top-0 px-6 py-4 rounded-t-xl flex items-center justify-between z-10" style={{ backgroundColor: '#131B2E', borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                  <h2 className="text-2xl font-bold" style={{ color: '#00FF87', letterSpacing: '-0.02em' }}>Perfil de Usuario</h2>
                   <button
                     onClick={() => setProfileOpen(false)}
-                    className="p-2 text-white hover:bg-white/20 rounded-lg transition-colors"
+                    className="p-2 rounded-lg transition-all duration-300"
+                    style={{ color: '#8B92A7' }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = '#00FF87';
+                      e.currentTarget.style.backgroundColor = 'rgba(0, 255, 135, 0.1)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = '#8B92A7';
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                    }}
                   >
                     <X className="w-6 h-6" />
                   </button>
@@ -311,29 +456,42 @@ function Dashboard() {
         )}
 
         {/* Dashboard con Tabs */}
-        <DashboardTabs activeTab={activeTab} onTabChange={setActiveTab}>
+        <DashboardTabs 
+          activeTab={activeTab} 
+          onTabChange={setActiveTab}
+          badges={{
+            rewards: consecutivePayments >= 5 ? 1 : undefined,
+            achievements: consecutivePayments >= 10 ? 1 : undefined,
+            activity: undefined,
+          }}
+        >
           {/* Tab: Resumen (Overview) */}
           {activeTab === "overview" && (
             <div className="space-y-6">
-              {/* Primera Fila - NFT y Progress */}
+              {/* Primera Fila - Acciones Recomendadas y NFT */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <RecommendedActions
+                  score={currentScore}
+                  level={getLevel(currentScore)}
+                  consecutivePayments={consecutivePayments}
+                  isDemoMode={isDemoMode}
+                />
                 <NFTCard
                   tokenId={isDemoMode ? "DEMO-001" : undefined}
                   score={currentScore}
                   level={getLevel(currentScore)}
                   isDemoMode={isDemoMode}
                 />
+              </div>
+
+              {/* Segunda Fila - Progress y Comparación */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <ProgressChart
                   currentScore={currentScore}
                   targetScore={1000}
                   consecutivePayments={consecutivePayments}
                   isDemoMode={isDemoMode}
                 />
-              </div>
-
-              {/* Segunda Fila - Acciones y Comparación */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <QuickActions isDemoMode={isDemoMode} />
                 <ComparisonCard
                   currentScore={currentScore}
                   averageScore={820}
@@ -341,13 +499,18 @@ function Dashboard() {
                 />
               </div>
 
-              {/* Tercera Fila - Predicciones */}
+              {/* Tercera Fila - Acciones Rápidas y Predicciones */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <QuickActions isDemoMode={isDemoMode} />
                 <ScorePrediction
                   currentScore={currentScore}
                   consecutivePayments={consecutivePayments}
                   isDemoMode={isDemoMode}
                 />
+              </div>
+
+              {/* Cuarta Fila - Gráfico de Tendencias */}
+              <div className="grid grid-cols-1 gap-6">
                 <ScoreTrendChart
                   currentScore={currentScore}
                   isDemoMode={isDemoMode}

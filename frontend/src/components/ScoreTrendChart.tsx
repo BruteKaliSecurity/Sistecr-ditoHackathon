@@ -22,65 +22,66 @@ export function ScoreTrendChart({ currentScore, isDemoMode = false }: ScoreTrend
   const data = isDemoMode ? demoData : [];
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6">
+    <div className="rounded-xl p-6 backdrop-blur-sm transition-all duration-300" style={{ backgroundColor: '#1A2332', border: '1px solid rgba(0, 255, 135, 0.1)', boxShadow: '0 0 20px rgba(0, 255, 135, 0.1)' }}>
       <div className="flex items-center space-x-2 mb-6">
-        <BarChart3 className="w-6 h-6 text-indigo-600" />
-        <h3 className="text-xl font-bold text-gray-900">Evolución del Score</h3>
+        <BarChart3 className="w-6 h-6" style={{ color: '#00FF87' }} />
+        <h3 className="text-xl font-bold" style={{ color: '#00FF87', letterSpacing: '-0.02em' }}>Evolución del Score</h3>
       </div>
 
       {data.length > 0 ? (
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(139, 146, 167, 0.2)" />
               <XAxis 
                 dataKey="month" 
-                stroke="#6b7280"
+                stroke="#8B92A7"
                 style={{ fontSize: '12px' }}
               />
               <YAxis 
-                stroke="#6b7280"
+                stroke="#8B92A7"
                 domain={[600, 1000]}
                 style={{ fontSize: '12px' }}
               />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: '#fff',
-                  border: '1px solid #e5e7eb',
+                  backgroundColor: '#1A2332',
+                  border: '1px solid rgba(0, 255, 135, 0.2)',
                   borderRadius: '8px',
+                  color: '#FFFFFF'
                 }}
                 formatter={(value: number) => [`${value} puntos`, "Score"]}
               />
               <Line
                 type="monotone"
                 dataKey="score"
-                stroke="#4f46e5"
+                stroke="#00FF87"
                 strokeWidth={3}
-                dot={{ fill: "#4f46e5", r: 5 }}
-                activeDot={{ r: 8 }}
+                dot={{ fill: "#00FF87", r: 5 }}
+                activeDot={{ r: 8, fill: "#00D9FF" }}
               />
             </LineChart>
           </ResponsiveContainer>
         </div>
       ) : (
-        <div className="h-64 flex items-center justify-center text-gray-500">
+        <div className="h-64 flex items-center justify-center" style={{ color: '#8B92A7' }}>
           <p>No hay datos disponibles</p>
         </div>
       )}
 
-      <div className="mt-4 pt-4 border-t border-gray-200">
+      <div className="mt-4 pt-4" style={{ borderTop: '1px solid rgba(255, 255, 255, 0.05)' }}>
         <div className="grid grid-cols-3 gap-4 text-center">
-          <div>
-            <div className="text-sm text-gray-600">Inicio</div>
-            <div className="text-lg font-bold text-gray-900">{data[0]?.score || 0}</div>
+          <div className="p-3 rounded-lg" style={{ backgroundColor: '#131B2E', border: '1px solid rgba(139, 146, 167, 0.1)' }}>
+            <div className="text-sm mb-1" style={{ color: '#8B92A7' }}>Inicio</div>
+            <div className="text-lg font-bold" style={{ color: '#FFFFFF' }}>{data[0]?.score || 0}</div>
           </div>
-          <div>
-            <div className="text-sm text-gray-600">Actual</div>
-            <div className="text-lg font-bold text-indigo-600">{currentScore}</div>
+          <div className="p-3 rounded-lg" style={{ backgroundColor: '#131B2E', border: '1px solid rgba(0, 255, 135, 0.2)' }}>
+            <div className="text-sm mb-1" style={{ color: '#8B92A7' }}>Actual</div>
+            <div className="text-lg font-bold" style={{ color: '#00FF87' }}>{currentScore}</div>
           </div>
-          <div>
-            <div className="text-sm text-gray-600">Mejora</div>
-            <div className="text-lg font-bold text-green-600">
+          <div className="p-3 rounded-lg" style={{ backgroundColor: '#131B2E', border: '1px solid rgba(0, 217, 255, 0.2)' }}>
+            <div className="text-sm mb-1" style={{ color: '#8B92A7' }}>Mejora</div>
+            <div className="text-lg font-bold" style={{ color: '#00D9FF' }}>
               +{data.length > 0 ? currentScore - (data[0]?.score || 0) : 0}
             </div>
           </div>

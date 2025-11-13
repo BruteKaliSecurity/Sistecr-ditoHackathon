@@ -17,45 +17,47 @@ export function ComparisonCard({
   const percentage = averageScore > 0 ? ((difference / averageScore) * 100).toFixed(1) : "0";
 
   const getComparisonStatus = () => {
-    if (difference > 50) return { icon: TrendingUp, color: "text-green-600", text: "Muy por encima" };
-    if (difference > 0) return { icon: TrendingUp, color: "text-green-500", text: "Por encima" };
-    if (difference === 0) return { icon: Minus, color: "text-gray-500", text: "Promedio" };
-    if (difference > -50) return { icon: TrendingDown, color: "text-orange-500", text: "Por debajo" };
-    return { icon: TrendingDown, color: "text-red-600", text: "Muy por debajo" };
+    if (difference > 50) return { icon: TrendingUp, color: "#00FF87", bg: "rgba(0, 255, 135, 0.1)", border: "rgba(0, 255, 135, 0.3)", text: "Muy por encima" };
+    if (difference > 0) return { icon: TrendingUp, color: "#00FF87", bg: "rgba(0, 255, 135, 0.1)", border: "rgba(0, 255, 135, 0.2)", text: "Por encima" };
+    if (difference === 0) return { icon: Minus, color: "#8B92A7", bg: "rgba(139, 146, 167, 0.1)", border: "rgba(139, 146, 167, 0.2)", text: "Promedio" };
+    if (difference > -50) return { icon: TrendingDown, color: "#FFAA00", bg: "rgba(255, 170, 0, 0.1)", border: "rgba(255, 170, 0, 0.2)", text: "Por debajo" };
+    return { icon: TrendingDown, color: "#ff4444", bg: "rgba(255, 68, 68, 0.1)", border: "rgba(255, 68, 68, 0.3)", text: "Muy por debajo" };
   };
 
   const status = getComparisonStatus();
   const StatusIcon = status.icon;
 
   return (
-    <div className="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 rounded-xl shadow-md p-6 border-2 border-indigo-200">
+    <div className="rounded-xl p-6 backdrop-blur-sm transition-all duration-300" style={{ backgroundColor: '#1A2332', border: '1px solid rgba(0, 255, 135, 0.1)', boxShadow: '0 0 20px rgba(0, 255, 135, 0.1)' }}>
       <div className="flex items-center space-x-2 mb-6">
-        <Users className="w-6 h-6 text-indigo-600" />
-        <h3 className="text-xl font-bold text-gray-900">Comparación con Promedio</h3>
+        <Users className="w-6 h-6" style={{ color: '#00FF87' }} />
+        <h3 className="text-xl font-bold" style={{ color: '#00FF87', letterSpacing: '-0.02em' }}>Comparación con Promedio</h3>
       </div>
 
       <div className="grid grid-cols-2 gap-4 mb-6">
-        <div className="bg-white rounded-lg p-4 border border-indigo-200">
-          <div className="text-sm text-gray-600 mb-1">Tu Score</div>
-          <div className="text-3xl font-bold text-indigo-600">{currentScore}</div>
+        <div className="rounded-lg p-4" style={{ backgroundColor: '#131B2E', border: '1px solid rgba(0, 255, 135, 0.2)' }}>
+          <div className="text-sm mb-1" style={{ color: '#8B92A7' }}>Tu Score</div>
+          <div className="text-3xl font-bold" style={{ color: '#00FF87' }}>{currentScore}</div>
         </div>
-        <div className="bg-white rounded-lg p-4 border border-gray-200">
-          <div className="text-sm text-gray-600 mb-1">Promedio</div>
-          <div className="text-3xl font-bold text-gray-700">{averageScore}</div>
+        <div className="rounded-lg p-4" style={{ backgroundColor: '#131B2E', border: '1px solid rgba(139, 146, 167, 0.1)' }}>
+          <div className="text-sm mb-1" style={{ color: '#8B92A7' }}>Promedio</div>
+          <div className="text-3xl font-bold" style={{ color: '#FFFFFF' }}>{averageScore}</div>
         </div>
       </div>
 
-      <div className={`p-4 bg-white rounded-lg border-2 ${
-        difference > 0 ? "border-green-200 bg-green-50" : 
-        difference < 0 ? "border-orange-200 bg-orange-50" : 
-        "border-gray-200 bg-gray-50"
-      }`}>
+      <div 
+        className="p-4 rounded-lg"
+        style={{ 
+          backgroundColor: status.bg,
+          border: `1px solid ${status.border}`
+        }}
+      >
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <StatusIcon className={`w-5 h-5 ${status.color}`} />
-            <span className={`font-semibold ${status.color}`}>{status.text}</span>
+            <StatusIcon className="w-5 h-5" style={{ color: status.color }} />
+            <span className="font-semibold" style={{ color: status.color }}>{status.text}</span>
           </div>
-          <div className={`text-right ${status.color}`}>
+          <div className="text-right" style={{ color: status.color }}>
             <div className="text-2xl font-bold">
               {difference > 0 ? "+" : ""}{difference}
             </div>
@@ -67,9 +69,16 @@ export function ComparisonCard({
       </div>
 
       {difference < 0 && (
-        <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-          <p className="text-sm text-blue-800">
-            <strong>💡 Consejo:</strong> Mantén tus pagos puntuales para mejorar tu score y alcanzar el promedio.
+        <div 
+          className="mt-4 p-3 rounded-lg"
+          style={{ 
+            backgroundColor: 'rgba(0, 217, 255, 0.1)',
+            border: '1px solid rgba(0, 217, 255, 0.2)',
+            borderLeft: '4px solid #00D9FF'
+          }}
+        >
+          <p className="text-sm" style={{ color: '#8B92A7' }}>
+            <strong style={{ color: '#FFFFFF' }}>💡 Consejo:</strong> Mantén tus pagos puntuales para mejorar tu score y alcanzar el promedio.
           </p>
         </div>
       )}

@@ -18,24 +18,24 @@ export function StatsSummary({
 }: StatsSummaryProps) {
   // Datos para gráfico de distribución
   const distributionData = [
-    { name: "Score", value: score, color: "#4f46e5" },
-    { name: "Pagos", value: consecutivePayments * 10, color: "#10b981" },
-    { name: "Recompensas", value: rewards / 10, color: "#f59e0b" },
+    { name: "Score", value: score, color: "#00FF87" },
+    { name: "Pagos", value: consecutivePayments * 10, color: "#00D9FF" },
+    { name: "Recompensas", value: rewards / 10, color: "#FFAA00" },
   ];
 
   const totalPoints = score + consecutivePayments * 10 + rewards / 10;
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6">
+    <div className="rounded-xl p-6 backdrop-blur-sm transition-all duration-300" style={{ backgroundColor: '#1A2332', border: '1px solid rgba(0, 255, 135, 0.1)', boxShadow: '0 0 20px rgba(0, 255, 135, 0.1)' }}>
       <div className="flex items-center space-x-2 mb-6">
-        <Activity className="w-6 h-6 text-indigo-600" />
-        <h3 className="text-xl font-bold text-gray-900">Resumen Estadístico</h3>
+        <Activity className="w-6 h-6" style={{ color: '#00FF87' }} />
+        <h3 className="text-xl font-bold" style={{ color: '#00FF87', letterSpacing: '-0.02em' }}>Resumen Estadístico</h3>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Gráfico de distribución */}
         <div>
-          <h4 className="text-sm font-semibold text-gray-700 mb-4">Distribución de Métricas</h4>
+          <h4 className="text-sm font-semibold mb-4" style={{ color: '#FFFFFF' }}>Distribución de Métricas</h4>
           <div className="h-48">
             <ResponsiveContainer width="100%" height="100%">
               <RechartsPieChart>
@@ -53,7 +53,14 @@ export function StatsSummary({
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: '#1A2332',
+                    border: '1px solid rgba(0, 255, 135, 0.2)',
+                    borderRadius: '8px',
+                    color: '#FFFFFF'
+                  }}
+                />
               </RechartsPieChart>
             </ResponsiveContainer>
           </div>
@@ -61,39 +68,39 @@ export function StatsSummary({
 
         {/* Estadísticas rápidas */}
         <div className="space-y-4">
-          <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+          <div className="p-4 rounded-lg" style={{ backgroundColor: '#131B2E', border: '1px solid rgba(0, 255, 135, 0.2)' }}>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 mb-1">Puntos Totales</p>
-                <p className="text-2xl font-bold text-blue-600">{Math.round(totalPoints)}</p>
+                <p className="text-sm mb-1" style={{ color: '#8B92A7' }}>Puntos Totales</p>
+                <p className="text-2xl font-bold" style={{ color: '#00FF87' }}>{Math.round(totalPoints)}</p>
               </div>
-              <BarChart3 className="w-8 h-8 text-blue-500" />
+              <BarChart3 className="w-8 h-8" style={{ color: '#00FF87' }} />
             </div>
           </div>
 
-          <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+          <div className="p-4 rounded-lg" style={{ backgroundColor: '#131B2E', border: '1px solid rgba(0, 217, 255, 0.2)' }}>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 mb-1">Eficiencia</p>
-                <p className="text-2xl font-bold text-green-600">
+                <p className="text-sm mb-1" style={{ color: '#8B92A7' }}>Eficiencia</p>
+                <p className="text-2xl font-bold" style={{ color: '#00D9FF' }}>
                   {consecutivePayments > 0 ? Math.round((score / consecutivePayments)) : 0}
                 </p>
-                <p className="text-xs text-gray-500">Puntos por pago</p>
+                <p className="text-xs mt-1" style={{ color: '#8B92A7' }}>Puntos por pago</p>
               </div>
-              <PieChart className="w-8 h-8 text-green-500" />
+              <PieChart className="w-8 h-8" style={{ color: '#00D9FF' }} />
             </div>
           </div>
 
-          <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
+          <div className="p-4 rounded-lg" style={{ backgroundColor: '#131B2E', border: '1px solid rgba(255, 170, 0, 0.2)' }}>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 mb-1">Valor Acumulado</p>
-                <p className="text-2xl font-bold text-purple-600">
+                <p className="text-sm mb-1" style={{ color: '#8B92A7' }}>Valor Acumulado</p>
+                <p className="text-2xl font-bold" style={{ color: '#FFAA00' }}>
                   ${(rewards * 100).toLocaleString("es-CO")}
                 </p>
-                <p className="text-xs text-gray-500">Equivalente en COP</p>
+                <p className="text-xs mt-1" style={{ color: '#8B92A7' }}>Equivalente en COP</p>
               </div>
-              <Activity className="w-8 h-8 text-purple-500" />
+              <Activity className="w-8 h-8" style={{ color: '#FFAA00' }} />
             </div>
           </div>
         </div>

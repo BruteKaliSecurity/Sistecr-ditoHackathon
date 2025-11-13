@@ -24,7 +24,7 @@ export function Achievements({ consecutivePayments, isDemoMode = false }: Achiev
       description: "Completa tu primer pago consecutivo",
       requirement: 1,
       icon: Trophy,
-      color: "from-yellow-400 to-orange-500",
+      color: "linear-gradient(135deg, #FFAA00 0%, #FF8800 100%)",
     },
     {
       id: "2",
@@ -32,7 +32,7 @@ export function Achievements({ consecutivePayments, isDemoMode = false }: Achiev
       description: "Alcanza 5 pagos consecutivos",
       requirement: 5,
       icon: Medal,
-      color: "from-gray-400 to-gray-600",
+      color: "linear-gradient(135deg, #8B92A7 0%, #6B7280 100%)",
     },
     {
       id: "3",
@@ -40,7 +40,7 @@ export function Achievements({ consecutivePayments, isDemoMode = false }: Achiev
       description: "Alcanza 10 pagos consecutivos",
       requirement: 10,
       icon: Award,
-      color: "from-yellow-500 to-yellow-600",
+      color: "linear-gradient(135deg, #00FF87 0%, #00D9FF 100%)",
     },
     {
       id: "4",
@@ -48,7 +48,7 @@ export function Achievements({ consecutivePayments, isDemoMode = false }: Achiev
       description: "Alcanza 15 pagos consecutivos",
       requirement: 15,
       icon: Star,
-      color: "from-purple-500 to-pink-500",
+      color: "linear-gradient(135deg, #00D9FF 0%, #00FF87 100%)",
     },
     {
       id: "5",
@@ -56,7 +56,7 @@ export function Achievements({ consecutivePayments, isDemoMode = false }: Achiev
       description: "Alcanza 20 pagos consecutivos",
       requirement: 20,
       icon: Trophy,
-      color: "from-blue-500 to-cyan-500",
+      color: "linear-gradient(135deg, #00FF87 0%, #00D9FF 100%)",
     },
     {
       id: "6",
@@ -64,7 +64,7 @@ export function Achievements({ consecutivePayments, isDemoMode = false }: Achiev
       description: "Alcanza 30 pagos consecutivos",
       requirement: 30,
       icon: Star,
-      color: "from-indigo-500 to-purple-600",
+      color: "linear-gradient(135deg, #00D9FF 0%, #00FF87 100%)",
     },
     {
       id: "7",
@@ -72,7 +72,7 @@ export function Achievements({ consecutivePayments, isDemoMode = false }: Achiev
       description: "Alcanza 50 pagos consecutivos",
       requirement: 50,
       icon: Trophy,
-      color: "from-amber-500 to-orange-600",
+      color: "linear-gradient(135deg, #00FF87 0%, #00D9FF 100%)",
     },
   ];
 
@@ -87,10 +87,10 @@ export function Achievements({ consecutivePayments, isDemoMode = false }: Achiev
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6">
+    <div className="rounded-xl p-6 backdrop-blur-sm transition-all duration-300" style={{ backgroundColor: '#1A2332', border: '1px solid rgba(0, 255, 135, 0.1)', boxShadow: '0 0 20px rgba(0, 255, 135, 0.1)' }}>
       <div className="flex items-center space-x-2 mb-6">
-        <Trophy className="w-6 h-6 text-indigo-600" />
-        <h3 className="text-xl font-bold text-gray-900">Logros y Conquistas</h3>
+        <Trophy className="w-6 h-6" style={{ color: '#00FF87' }} />
+        <h3 className="text-xl font-bold" style={{ color: '#00FF87', letterSpacing: '-0.02em' }}>Logros y Conquistas</h3>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -102,63 +102,53 @@ export function Achievements({ consecutivePayments, isDemoMode = false }: Achiev
           return (
             <div
               key={achievement.id}
-              className={`p-4 rounded-lg border-2 transition-all ${
-                status === "unlocked"
-                  ? `bg-gradient-to-br ${achievement.color} text-white border-transparent shadow-lg`
-                  : status === "almost"
-                  ? "bg-yellow-50 border-yellow-300"
-                  : "bg-gray-50 border-gray-200 opacity-60"
-              }`}
+              className="p-4 rounded-lg border-2 transition-all duration-300"
+              style={{
+                background: status === "unlocked" ? achievement.color : status === "almost" ? 'rgba(255, 170, 0, 0.1)' : 'rgba(139, 146, 167, 0.05)',
+                borderColor: status === "unlocked" ? 'transparent' : status === "almost" ? 'rgba(255, 170, 0, 0.3)' : 'rgba(139, 146, 167, 0.2)',
+                color: status === "unlocked" ? '#0A0F1E' : '#FFFFFF',
+                opacity: status === "locked" ? 0.6 : 1,
+                boxShadow: status === "unlocked" ? '0 0 20px rgba(0, 255, 135, 0.2)' : 'none'
+              }}
             >
               <div className="flex items-start justify-between mb-3">
-                <div className={`p-2 rounded-lg ${
-                  status === "unlocked" ? "bg-white/20" : "bg-gray-200"
-                }`}>
+                <div className="p-2 rounded-lg" style={{ backgroundColor: status === "unlocked" ? 'rgba(10, 15, 30, 0.2)' : status === "almost" ? 'rgba(255, 170, 0, 0.2)' : 'rgba(139, 146, 167, 0.1)' }}>
                   {status === "unlocked" ? (
-                    <Icon className="w-6 h-6 text-white" />
+                    <Icon className="w-6 h-6" style={{ color: '#0A0F1E' }} />
                   ) : status === "almost" ? (
-                    <Icon className="w-6 h-6 text-yellow-600" />
+                    <Icon className="w-6 h-6" style={{ color: '#FFAA00' }} />
                   ) : (
-                    <Lock className="w-6 h-6 text-gray-400" />
+                    <Lock className="w-6 h-6" style={{ color: '#8B92A7' }} />
                   )}
                 </div>
                 {status === "unlocked" && (
-                  <CheckCircle2 className="w-5 h-5 text-white" />
+                  <CheckCircle2 className="w-5 h-5" style={{ color: '#0A0F1E' }} />
                 )}
               </div>
 
-              <h4 className={`font-bold mb-1 ${
-                status === "unlocked" ? "text-white" : "text-gray-900"
-              }`}>
+              <h4 className="font-bold mb-1" style={{ color: status === "unlocked" ? '#0A0F1E' : '#FFFFFF' }}>
                 {achievement.name}
               </h4>
-              <p className={`text-sm mb-3 ${
-                status === "unlocked" ? "text-white/90" : "text-gray-600"
-              }`}>
+              <p className="text-sm mb-3" style={{ color: status === "unlocked" ? 'rgba(10, 15, 30, 0.8)' : '#8B92A7' }}>
                 {achievement.description}
               </p>
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className={status === "unlocked" ? "text-white/80" : "text-gray-600"}>
+                  <span style={{ color: status === "unlocked" ? 'rgba(10, 15, 30, 0.7)' : '#8B92A7' }}>
                     Requisito: {achievement.requirement} pagos
                   </span>
-                  <span className={status === "unlocked" ? "text-white" : "text-gray-700 font-semibold"}>
+                  <span className="font-semibold" style={{ color: status === "unlocked" ? '#0A0F1E' : '#FFFFFF' }}>
                     {consecutivePayments} / {achievement.requirement}
                   </span>
                 </div>
-                <div className={`w-full rounded-full h-2 ${
-                  status === "unlocked" ? "bg-white/30" : "bg-gray-200"
-                }`}>
+                <div className="w-full rounded-full h-2" style={{ backgroundColor: status === "unlocked" ? 'rgba(10, 15, 30, 0.2)' : 'rgba(139, 146, 167, 0.1)' }}>
                   <div
-                    className={`h-2 rounded-full transition-all ${
-                      status === "unlocked"
-                        ? "bg-white"
-                        : status === "almost"
-                        ? "bg-yellow-500"
-                        : "bg-gray-300"
-                    }`}
-                    style={{ width: `${progress}%` }}
+                    className="h-2 rounded-full transition-all duration-500"
+                    style={{ 
+                      width: `${progress}%`,
+                      backgroundColor: status === "unlocked" ? '#0A0F1E' : status === "almost" ? '#FFAA00' : '#8B92A7'
+                    }}
                   ></div>
                 </div>
               </div>
@@ -167,9 +157,9 @@ export function Achievements({ consecutivePayments, isDemoMode = false }: Achiev
         })}
       </div>
 
-      <div className="mt-6 p-4 bg-indigo-50 rounded-lg border border-indigo-200">
-        <p className="text-sm text-indigo-900">
-          <strong>Progreso Total:</strong> {consecutivePayments} pagos consecutivos completados
+      <div className="mt-6 p-4 rounded-lg backdrop-blur-sm" style={{ backgroundColor: '#131B2E', border: '1px solid rgba(0, 255, 135, 0.2)' }}>
+        <p className="text-sm" style={{ color: '#8B92A7' }}>
+          <strong style={{ color: '#FFFFFF' }}>Progreso Total:</strong> {consecutivePayments} pagos consecutivos completados
         </p>
       </div>
     </div>
